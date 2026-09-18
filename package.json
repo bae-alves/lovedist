@@ -1,0 +1,81 @@
+{
+  "name": "lovedist",
+  "displayName": "LoveDist",
+  "description": "Build distributable LÖVE executables for Windows and Linux with one click",
+  "version": "0.1.0",
+  "publisher": "MauveMagician",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MauveMagician/lovedist"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "lovedist.build",
+        "title": "Build LÖVE Executables",
+        "icon": {
+          "light": "media/heart.svg",
+          "dark": "media/heart.svg"
+        }
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "lovedist.build",
+          "when": "resourceExtname == .lua",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "LoveDist",
+      "properties": {
+        "lovedist.gameName": {
+          "type": "string",
+          "default": "",
+          "description": "Base name for the built files (defaults to the workspace folder name)."
+        },
+        "lovedist.outputDir": {
+          "type": "string",
+          "default": "dist",
+          "description": "Output directory for built files, relative to the project root."
+        },
+        "lovedist.loveVersion": {
+          "type": "string",
+          "default": "11.5",
+          "description": "LÖVE version used when auto-downloading the Windows binary."
+        },
+        "lovedist.binaries.windows": {
+          "type": "string",
+          "default": "",
+          "description": "Path to a Windows LÖVE love.exe (or a folder containing it). Empty = auto-download the official win64 build."
+        },
+        "lovedist.binaries.linux": {
+          "type": "string",
+          "default": "love",
+          "description": "Path to a Linux LÖVE binary (an ELF executable, not an AppImage). 'love' = use the one installed on this system."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  }
+}
