@@ -2,7 +2,7 @@
   "name": "lovedist",
   "displayName": "LoveDist",
   "description": "Build distributable LÖVE executables for Windows and Linux with one click",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "publisher": "bae-alves",
   "author": "bae alves",
   "license": "CC0-1.0",
