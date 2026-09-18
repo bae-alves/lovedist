@@ -1,10 +1,11 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { promisify } from 'util';
+import { sanitizeFileNameSegment, sanitizeOutputDir } from './sanitize';
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 
 type TargetId = 'win64' | 'linux';
 
@@ -75,8 +76,15 @@ async function buildAll(
   ids: TargetId[]
 ): Promise<string[]> {
   const config = vscode.workspace.getConfiguration('lovedist');
-  const gameName = config.get<string>('gameName') || path.basename(projectRoot);
-  const outputDirName = config.get<string>('outputDir') || 'dist';
+  const gameName = sanitizeFileNameSegment(
+    config.get<string>('gameName') || path.basename(projectRoot),
+    'lovedist.gameName'
+  );
+  const outputDirName = sanitizeOutputDir(
+    projectRoot,
+    config.get<string>('outputDir') || 'dist',
+    'lovedist.outputDir'
+  );
   const distDir = path.join(projectRoot, outputDirName);
 
   const mainLua = path.join(projectRoot, 'main.lua');
@@ -116,16 +124,18 @@ async function zipProject(
 ): Promise<void> {
   if (process.platform === 'win32') {
     const ps = `Compress-Archive -Path (Get-ChildItem -Path . -Exclude build,${outputDirName} | Select-Object -ExpandProperty FullName) -DestinationPath "${lovePath}" -Force`;
-    const { stderr } = await execAsync(
-      `powershell -NoProfile -Command "${ps.replace(/"/g, '\\"')}"`,
+    const { stderr } = await execFileAsync(
+      'powershell',
+      ['-NoProfile', '-Command', ps],
       { cwd: projectRoot }
     );
     if (stderr) {
       throw new Error(stderr);
     }
   } else {
-    const { stderr } = await execAsync(
-      `zip -r -X "${lovePath}" . -x "${outputDirName}/*" "build/*"`,
+    const { stderr } = await execFileAsync(
+      'zip',
+      ['-r', '-X', lovePath, '.', '-x', `${outputDirName}/*`, 'build/*'],
       { cwd: projectRoot }
     );
     if (stderr) {
@@ -174,13 +184,15 @@ async function ensureDownloadedWin64(
   const zipPath = path.join(dir, 'love-win64.zip');
 
   try {
-    await execAsync(`curl -L --fail -o "${zipPath}" "${url}"`);
+    await execFileAsync('curl', ['-L', '--fail', '-o', zipPath, url]);
     if (process.platform === 'win32') {
-      await execAsync(
-        `powershell -NoProfile -Command "Expand-Archive -Path '${zipPath}' -DestinationPath '${dir}' -Force"`
-      );
+      await execFileAsync('powershell', [
+        '-NoProfile',
+        '-Command',
+        `Expand-Archive -Path '${zipPath}' -DestinationPath '${dir}' -Force`,
+      ]);
     } else {
-      await execAsync(`unzip -o "${zipPath}" -d "${dir}"`);
+      await execFileAsync('unzip', ['-o', zipPath, '-d', dir]);
     }
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
@@ -225,9 +237,9 @@ async function resolveLinuxBinary(
     }
   }
 
-  const which = process.platform === 'win32' ? 'where' : 'command -v';
+  const which = process.platform === 'win32' ? 'where' : 'which';
   try {
-    const { stdout } = await execAsync(`${which} ${configured}`);
+    const { stdout } = await execFileAsync(which, [configured]);
     const resolved = stdout.trim().split('\n')[0];
     if (resolved) {
       return resolved;

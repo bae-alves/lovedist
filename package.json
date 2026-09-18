@@ -1,8 +1,8 @@
 {
   "name": "love2d-dist",
   "displayName": "LÖVE 2D Dist / LOVE 2D Dist",
-  "description": "Package Lua and LÖVE 2D games as Windows and Linux executables from VS Code",
-  "version": "0.1.5",
+  "description": "Package LÖVE 2D games as Windows and Linux executables from VS Code",
+  "version": "0.1.9",
   "publisher": "bae-alves",
   "author": "bae alves",
   "license": "CC0-1.0",
@@ -21,7 +21,6 @@
   "sponsor": {
     "url": "https://ko-fi.com/baealves"
   },
-  "pix": "",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -67,7 +66,7 @@
       "editor/title": [
         {
           "command": "lovedist.build",
-          "when": "resourceExtname == .lua",
+          "when": "resourceExtname == '.lua'",
           "group": "navigation@2"
         }
       ]
@@ -106,7 +105,9 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "pretest": "tsc -p ./tsconfig.test.json",
+    "test": "node --test test-out/test"
   },
   "devDependencies": {
     "@types/vscode": "^1.80.0",

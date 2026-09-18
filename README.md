@@ -10,7 +10,7 @@ LoveDist adds a heart-shaped action next to the editor title bar for `.lua` file
 - a Windows x64 executable,
 - a Linux executable.
 
-This makes LoveDist useful for shipping games built with LÖVE 2D from Visual Studio Code.
+This makes LoveDist useful for shipping games built with LÖVE 2D from Visual Studio Code. LoveDist does not package standalone Lua scripts — only LÖVE projects with a `main.lua` at the project root.
 
 ## Installation
 
