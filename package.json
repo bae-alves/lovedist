@@ -3,11 +3,11 @@
   "displayName": "LoveDist",
   "description": "Build distributable LÖVE executables for Windows and Linux with one click",
   "version": "0.1.0",
-  "publisher": "MauveMagician",
+  "publisher": "baeRoog",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MauveMagician/lovedist"
+    "url": "https://github.com/baeRoog/lovedist"
   },
   "engines": {
     "vscode": "^1.80.0"
