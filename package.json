@@ -14,6 +14,14 @@
   "bugs": {
     "url": "https://github.com/bae-alves/lovedist/issues"
   },
+  "funding": {
+    "type": "ko_fi",
+    "url": "https://ko-fi.com/baealves"
+  },
+  "sponsor": {
+    "url": "https://ko-fi.com/baealves"
+  },
+  "pix": "",
   "engines": {
     "vscode": "^1.80.0"
   },

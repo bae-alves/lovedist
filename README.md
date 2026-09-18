@@ -44,6 +44,16 @@ The generated outputs include:
 - The Linux build fuses your project with the LÖVE binary available on the current machine.
 - If you want a different runtime, point `lovedist.binaries.linux` at a specific ELF binary.
 
+## Support
+
+If you enjoy this extension and want to support its development, you can donate via Ko-fi:
+
+- https://ko-fi.com/baealves
+
+PIX donation:
+
+- 
+
 ## License
 
 This project is released under [CC0 1.0 Universal](LICENSE).
