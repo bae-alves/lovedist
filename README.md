@@ -2,11 +2,15 @@
 
 Build distributable [LÖVE 2D](https://love2d.org) executables for Windows and Linux directly from VS Code.
 
+LoveDist is a Lua game-development tool for the LÖVE game engine. It turns a standard LÖVE project with `main.lua` into a `.love` archive or a platform executable without requiring a separate packaging script.
+
 LoveDist adds a heart-shaped action next to the editor title bar for `.lua` files and can package a game into:
 
 - a `.love` archive,
 - a Windows x64 executable,
 - a Linux executable.
+
+This makes LoveDist useful for shipping games built with LÖVE 2D from Visual Studio Code.
 
 ## Installation
 
