@@ -54,10 +54,6 @@ If you enjoy this extension and want to support its development, you can donate 
 
 - https://ko-fi.com/baealves
 
-PIX donation:
-
-- 
-
 ## License
 
 This project is released under [CC0 1.0 Universal](LICENSE).

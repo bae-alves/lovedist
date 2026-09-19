@@ -2,7 +2,7 @@
   "name": "love2d-dist",
   "displayName": "LÖVE 2D Dist / LOVE 2D Dist",
   "description": "Package LÖVE 2D games as Windows and Linux executables from VS Code",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "publisher": "bae-alves",
   "author": "bae alves",
   "license": "CC0-1.0",
