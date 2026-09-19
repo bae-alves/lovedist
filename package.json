@@ -51,6 +51,7 @@
   ],
   "main": "./out/extension.js",
   "icon": "media/icon.png",
+  "activationEvents": [],
   "contributes": {
     "commands": [
       {
